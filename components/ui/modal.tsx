@@ -1,43 +1,28 @@
 "use client";
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import React from "react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-interface ModalProps extends React.HTMLAttributes<HTMLDivElement> {
+interface ModalProps {
   children: React.ReactNode;
   onClose: () => void;
+  title?: string;
 }
 
-const Modal = ({ children, onClose, className, ...props }: ModalProps) => {
-  React.useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        onClose();
-      }
-    };
-    document.addEventListener("keydown", handleEsc);
-    return () => document.removeEventListener("keydown", handleEsc);
-  }, [onClose]);
-
+export function Modal({
+  children,
+  onClose,
+  title = "Detalles de la receta",
+}: ModalProps) {
   return (
-    <div
-      className={cn(
-        "fixed inset-0 z-50 bg-black/80 flex items-center justify-center",
-        className
-      )}
-      onClick={onClose}
-      {...props}
-    >
-      <div
-        className="bg-background rounded-lg shadow-lg max-w-lg w-full mx-4 p-6"
-        onClick={(e) => e.stopPropagation()}
-        role="dialog"
-        aria-modal="true"
-      >
-        {children}
-      </div>
-    </div>
+    <Dialog open={true} onOpenChange={onClose}>
+      <DialogContent className="max-w-4xl w-[90vw] max-h-[90vh] p-0">
+        <DialogTitle className="sr-only">{title}</DialogTitle>
+        <ScrollArea className="h-[85vh] rounded-md">
+          <div className="p-6">{children}</div>
+        </ScrollArea>
+      </DialogContent>
+    </Dialog>
   );
-};
-
-export { Modal };
+}
