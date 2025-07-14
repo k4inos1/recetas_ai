@@ -58,12 +58,12 @@ En tu terminal, sigue estos pasos:
 
 # Clonar el repositorio
 
-git clone https://github.com/k4inos1/recetas_ai.git
-cd buscador-recetas
+- git clone https://github.com/k4inos1/recetas_ai.git
+- cd recetas_ai
 
 # Instalar dependencias
 
-npm install
+npm install --force
 
 # Ejecutar en modo desarrollo
 
